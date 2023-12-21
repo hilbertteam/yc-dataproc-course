@@ -4,7 +4,7 @@ set -ux
 
 # Считываем значения переменных
 source `dirname "$(realpath $0)"`/0-common-config.env
-source `dirname "$(realpath $0)"`/2.2-dataproc.env
+source `dirname "$(realpath $0)"`/2.2-dataproc-config.env
 
 ###
 # Secority Group

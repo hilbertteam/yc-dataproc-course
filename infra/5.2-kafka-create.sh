@@ -4,8 +4,8 @@ set -eux
 
 # Считываем значения переменных
 source `dirname "$(realpath $0)"`/0-common-config.env
-source `dirname "$(realpath $0)"`/2.2-dataproc.env
-source `dirname "$(realpath $0)"`/5.2-kafka.env
+source `dirname "$(realpath $0)"`/2.2-dataproc-config.env
+source `dirname "$(realpath $0)"`/5.2-kafka-config.env
 
 
 ###
