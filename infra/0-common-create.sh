@@ -55,12 +55,12 @@ yc storage bucket update --name $S3_BUCKET_NAME --policy-from-file ./temp/s3-sa-
 yc vpc gateway get --name $NAT_GATEWAY_NAME || yc vpc gateway create \
    --name $NAT_GATEWAY_NAME
 # Получаем id nat gateway
-export NAT_GAEWAY_ID=$(yc vpc gateway get --name $NAT_GATEWAY_NAME | grep "^id:" | awk '{ print $2 }')
+export NAT_GATEWAY_ID=$(yc vpc gateway get --name $NAT_GATEWAY_NAME | grep "^id:" | awk '{ print $2 }')
 
 # Создаем таблицу маршрутизации
 yc vpc route-table create $ROUTE_TABLE_NAME \
    --network-name=$VPC_NETWORK_NAME \
-   --route destination=0.0.0.0/0,gateway-id=$NAT_GAEWAY_ID
+   --route destination=0.0.0.0/0,gateway-id=$NAT_GATEWAY_ID
 # Привязваем таблицу маршрутизации к подсети
 yc vpc subnet update $VPC_SUBNET_NAME \
    --route-table-name=$ROUTE_TABLE_NAME
