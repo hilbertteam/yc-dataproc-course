@@ -24,7 +24,7 @@ yc vpc security-group get $DATAPROC_SG_NAME || yc vpc security-group create \
 
 ###
 # DataProc Cluster
-###
+##
 # Создаем пару ssh-ключей если не была создана ранее
 test -f "$SSH_KEY_FILE" || ssh-keygen -t ed25519 -f $SSH_KEY_FILE -q -N ""
 # Получаем ID группы безопасности
