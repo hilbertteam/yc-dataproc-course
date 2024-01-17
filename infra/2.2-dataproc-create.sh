@@ -12,7 +12,7 @@ source `dirname "$(realpath $0)"`/2.2-dataproc-config.env
 # Получаем ID сети
 export VPC_NETWORK_ID=$(yc vpc network get $VPC_NETWORK_NAME | grep "^id:" | awk '{ print $2 }')
 # Создаем Группу безопасности и правила в ней
-yc vpc security-group get $DATAPROC_SG_NAME || yc vpc security-group create \
+yc vpc security-group get $DATAPROC_SG_NAME 2>/dev/null || yc vpc security-group create \
   --name $DATAPROC_SG_NAME \
   --rule "direction=ingress,port=any,protocol=any,predefined=self_security_group" \
   --rule "direction=ingress,port=22,protocol=tcp,predefined=self_security_group" \

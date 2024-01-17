@@ -52,7 +52,7 @@ yc storage bucket update --name $S3_BUCKET_NAME --policy-from-file ./temp/s3-sa-
 # nat gateway
 ###
 # Создаем nat gateway
-yc vpc gateway get --name $NAT_GATEWAY_NAME || yc vpc gateway create \
+yc vpc gateway get --name $NAT_GATEWAY_NAME 2>/dev/null || yc vpc gateway create \
    --name $NAT_GATEWAY_NAME
 # Получаем id nat gateway
 export NAT_GATEWAY_ID=$(yc vpc gateway get --name $NAT_GATEWAY_NAME | grep "^id:" | awk '{ print $2 }')

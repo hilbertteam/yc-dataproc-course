@@ -18,7 +18,7 @@ export TOOLBOX_SG_ID=$(yc vpc security-group get $TOOLBOX_SG_NAME | grep "^id:" 
 # Получаем идентификатор группы безопасности dataproc-кластера
 export DATAPROC_SG_ID=$(yc vpc security-group get $DATAPROC_SG_NAME | grep "^id:" | awk '{ print $2 }')
 # Создаем группу безопасности
-yc vpc security-group get $KAFKA_SG_NAME || yc vpc security-group create \
+yc vpc security-group get $KAFKA_SG_NAME 2>/dev/null || yc vpc security-group create \
   --name $KAFKA_SG_NAME \
   --rule "direction=ingress,from-port=9091,to-port=9092,protocol=tcp,predefined=self_security_group" \
   --rule "direction=ingress,from-port=9091,to-port=9092,protocol=tcp,security-group-id=$TOOLBOX_SG_ID" \
@@ -31,7 +31,7 @@ export KAFKA_SG_ID=$(yc vpc security-group get $KAFKA_SG_NAME | grep "^id:" | aw
 # Получаем идентификатор подсети
 export KAFKA_SUBNET_ID=$(yc vpc subnet get $KAFKA_SUBNET_NAME | grep "^id:" | awk '{ print $2 }')
 # Создаем кластер
-yc managed-kafka cluster get --name $KAFKA_CLUSTER_NAME || yc managed-kafka cluster create $KAFKA_CLUSTER_NAME \
+yc managed-kafka cluster get --name $KAFKA_CLUSTER_NAME 2>/dev/null || yc managed-kafka cluster create $KAFKA_CLUSTER_NAME \
   --environment $KAFKA_ENVIRONMENT \
   --version $KAFKA_VERSION \
   --network-name $VPC_NETWORK_NAME \
