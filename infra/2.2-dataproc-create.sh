@@ -11,11 +11,13 @@ source `dirname "$(realpath $0)"`/2.2-dataproc-config.env
 ###
 # Получаем ID сети
 export VPC_NETWORK_ID=$(yc vpc network get $VPC_NETWORK_NAME | grep "^id:" | awk '{ print $2 }')
+# Получаем идентификатор группы безопасности yc-toolbox
+export TOOLBOX_SG_ID=$(yc vpc security-group get $TOOLBOX_SG_NAME | grep "^id:" | awk '{ print $2 }')
 # Создаем Группу безопасности и правила в ней
 yc vpc security-group get $DATAPROC_SG_NAME 2>/dev/null || yc vpc security-group create \
   --name $DATAPROC_SG_NAME \
   --rule "direction=ingress,port=any,protocol=any,predefined=self_security_group" \
-  --rule "direction=ingress,port=22,protocol=tcp,predefined=self_security_group" \
+  --rule "direction=ingress,port=22,protocol=tcp,security-group-id=$TOOLBOX_SG_ID" \
   --rule "direction=egress,port=any,protocol=any,predefined=self_security_group" \
   --rule "direction=egress,port=123,protocol=udp,v4-cidrs=[0.0.0.0/0]" \
   --rule "direction=egress,port=80,protocol=tcp,v4-cidrs=[0.0.0.0/0]" \
@@ -31,7 +33,7 @@ test -f "$SSH_KEY_FILE" || ssh-keygen -t ed25519 -f $SSH_KEY_FILE -q -N ""
 export DATAPROC_SG_ID=$(yc vpc security-group get $DATAPROC_SG_NAME | grep "^id:" | awk '{ print $2 }')
 # Создаем dataproc кластер
 yc dataproc cluster create $DATAPORC_CLUSTER_NAME \
-   --bucket=$S3_BUCKET_TASKS \
+   --bucket=$S3_BUCKET_INFRA \
    --zone=$DATAPROC_ZONE_ID \
    --service-account-name=$DATAPROC_SA_NAME \
    --security-group-ids=$DATAPROC_SG_ID \
