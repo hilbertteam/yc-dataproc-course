@@ -32,7 +32,7 @@ test -f "$SSH_KEY_FILE" || ssh-keygen -t ed25519 -f $SSH_KEY_FILE -q -N ""
 # Получаем ID группы безопасности
 export DATAPROC_SG_ID=$(yc vpc security-group get $DATAPROC_SG_NAME | grep "^id:" | awk '{ print $2 }')
 # Создаем dataproc кластер
-yc dataproc cluster create $DATAPORC_CLUSTER_NAME \
+yc dataproc cluster create $DATAPROC_CLUSTER_NAME \
    --bucket=$S3_BUCKET_INFRA \
    --zone=$DATAPROC_ZONE_ID \
    --service-account-name=$DATAPROC_SA_NAME \
