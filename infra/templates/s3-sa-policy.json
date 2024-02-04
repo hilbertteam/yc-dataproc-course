@@ -1,11 +1,11 @@
 {
   "Statement": [
     {
-      "Sid": "Allow all for ${S3_SA_NAME}",
+      "Sid": "Allow all for ${DATAPROC_SA_NAME}",
       "Effect": "Allow",
       "Principal": {
         "CanonicalUser": [
-          "${S3_SA_ID}"
+          "${DATAPROC_SA_ID}"
         ]
       },
       "Action": "*",

@@ -46,5 +46,5 @@ yc vpc gateway delete \
 # ssh
 ###
 # Удаляем пару ssh-ключей
-rm ${SSH_KEY_FILE}
+rm -f ${SSH_KEY_FILE}
 rm ${SSH_KEY_FILE}.pub
