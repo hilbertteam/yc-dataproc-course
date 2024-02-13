@@ -15,7 +15,7 @@ source `dirname "$(realpath $0)"`/0-common-config.env
 # Создаем сервисный аккаунт
 yc iam service-account create $DATAPROC_SA_NAME
 
-# Получаем id сервисного аккаунта
+# Получаем id сервисного аккаунта dataproc-sa
 export DATAPROC_SA_ID=$(yc iam service-account get $DATAPROC_SA_NAME | grep "^id:" | awk '{ print $2 }')
 # Назначаем сервисному аккаунту роли editor и dataproc.agent (необходимо для DataProc)
 yc resource-manager folder add-access-binding dataproc \
@@ -36,6 +36,9 @@ yc storage bucket create \
 # Создание бакета который будет хранить в себе PySpark-задания и их зависимости
 yc storage bucket create \
   --name $S3_BUCKET_TASKS
+
+# получаем id сервисного аккаунта toolbox-sa
+export TOOLBOX_SA_ID=$(yc iam service-account get $TOOLBOX_SA_NAME | grep "^id:" | awk '{ print $2 }')
 
 # Генерируем json-файл с политиками из шаблона
 # INFRA

@@ -20,8 +20,12 @@ def main():
     count = sc.parallelize(range(0, NUM_SAMPLES)) \
                 .filter(inside).count()
     
-    count.saveAsTextFile("s3a://yc-dataproc-tasks/dataproc/hadoop/out/" + job_id + ".txt")
+    # count.saveAsTextFile("s3a://yc-dataproc-tasks/output/jobs/" + job_id + ".txt")
+    print(" ")
+    print("-"*48)
     print("Pi is roughly %f" % (4.0 * count / NUM_SAMPLES))
+    print("."*48)
+    print(" ")
 
 if __name__ == "__main__":
     main()

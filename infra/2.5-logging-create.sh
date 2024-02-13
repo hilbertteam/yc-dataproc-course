@@ -27,7 +27,7 @@ sleep 2
 test -f temp/aws-cli-static.yml || yc iam access-key create \
   --service-account-name $TOOLBOX_SA_NAME \
   --description "aws cli $(date +'%Y-%m-%d %H:%M:%S')" > temp/aws-cli-static.yml
-# Задаем значения переменных
+# Настраиваем aws cli
 export AWS_ACCESS_KEY_ID=$(yq '.access_key.key_id'  < temp/aws-cli-static.yml)
 export AWS_SECRET_ACCESS_KEY=$(yq '.secret' < temp/aws-cli-static.yml)
 

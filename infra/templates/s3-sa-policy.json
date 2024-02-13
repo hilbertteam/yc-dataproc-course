@@ -5,7 +5,8 @@
       "Effect": "Allow",
       "Principal": {
         "CanonicalUser": [
-          "${DATAPROC_SA_ID}"
+          "${DATAPROC_SA_ID}",
+          "${TOOLBOX_SA_ID}"
         ]
       },
       "Action": "*",
