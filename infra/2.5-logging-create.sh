@@ -66,7 +66,7 @@ yc logging group get $LOG_GROUP_NAME 2>/dev/null || yc logging group create \
 # DataProc
 ###
 # Получаем ID лог-группы
-export LOG_GROUP_ID=$(yc logging group get $LOG_GROUP_NAME  --format json | jq -r ".id")
+export LOG_GROUP_ID=$(yc logging group get $LOG_GROUP_NAME --format json | jq -r ".id")
 # Назначаем лог-группу для кластера DataProc
 yc dataproc cluster update $DATAPROC_CLUSTER_NAME \
   --log-group-id $LOG_GROUP_ID

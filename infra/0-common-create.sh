@@ -16,7 +16,7 @@ source `dirname "$(realpath $0)"`/0-common-config.env
 yc iam service-account create $DATAPROC_SA_NAME
 
 # Получаем id сервисного аккаунта dataproc-sa
-export DATAPROC_SA_ID=$(yc iam service-account get $DATAPROC_SA_NAME | grep "^id:" | awk '{ print $2 }')
+export DATAPROC_SA_ID=$(yc iam service-account get $DATAPROC_SA_NAME --format json | jq -r ".id")
 # Назначаем сервисному аккаунту роли editor и dataproc.agent (необходимо для DataProc)
 yc resource-manager folder add-access-binding dataproc \
   --role editor \
@@ -38,7 +38,7 @@ yc storage bucket create \
   --name $S3_BUCKET_TASKS
 
 # получаем id сервисного аккаунта toolbox-sa
-export TOOLBOX_SA_ID=$(yc iam service-account get $TOOLBOX_SA_NAME | grep "^id:" | awk '{ print $2 }')
+export TOOLBOX_SA_ID=$(yc iam service-account get $TOOLBOX_SA_NAME --format json | jq -r ".id")
 
 # Генерируем json-файл с политиками из шаблона
 # INFRA
@@ -58,7 +58,7 @@ yc storage bucket update --name $S3_BUCKET_NAME --policy-from-file ./temp/s3-sa-
 yc vpc gateway get --name $NAT_GATEWAY_NAME 2>/dev/null || yc vpc gateway create \
    --name $NAT_GATEWAY_NAME
 # Получаем id nat gateway
-export NAT_GATEWAY_ID=$(yc vpc gateway get --name $NAT_GATEWAY_NAME | grep "^id:" | awk '{ print $2 }')
+export NAT_GATEWAY_ID=$(yc vpc gateway get --name $NAT_GATEWAY_NAME --format json | jq -r ".id")
 
 # Создаем таблицу маршрутизации
 yc vpc route-table create $ROUTE_TABLE_NAME \
@@ -80,12 +80,12 @@ chmod 0400 $SSH_KEY_FILE
 ###
 # toolbox sg
 ###
-export VPC_NETWORK_ID=$(yc vpc network get $VPC_NETWORK_NAME | grep "^id:" | awk '{ print $2 }')
+export VPC_NETWORK_ID=$(yc vpc network get $VPC_NETWORK_NAME --format json | jq -r ".id")
 yc vpc security-group get $TOOLBOX_SG_NAME || yc vpc security-group create \
   --name $TOOLBOX_SG_NAME \
   --network-id $VPC_NETWORK_ID \
   --rule "direction=egress,port=any,protocol=any,v4-cidrs=[0.0.0.0/0]" \
   --rule "direction=ingress,port=22,protocol=tcp,v4-cidrs=[0.0.0.0/0]"
-export TOOLBOX_SG_ID=$(yc vpc security-group get $TOOLBOX_SG_NAME | grep "^id:" | awk '{ print $2 }')
+export TOOLBOX_SG_ID=$(yc vpc security-group get $TOOLBOX_SG_NAME --format json | jq -r ".id")
 yc compute instance get $TOOLBOX_NAME && yc compute instance update-network-interface $TOOLBOX_NAME --network-interface-index	0 \
   --security-group-id	$TOOLBOX_SG_ID
