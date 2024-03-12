@@ -85,7 +85,8 @@ yc vpc security-group get $TOOLBOX_SG_NAME || yc vpc security-group create \
   --name $TOOLBOX_SG_NAME \
   --network-id $VPC_NETWORK_ID \
   --rule "direction=egress,port=any,protocol=any,v4-cidrs=[0.0.0.0/0]" \
-  --rule "direction=ingress,port=22,protocol=tcp,v4-cidrs=[0.0.0.0/0]"
+  --rule "direction=ingress,port=22,protocol=tcp,v4-cidrs=[0.0.0.0/0]" \
+  --rule "direction=ingress,port=8080,protocol=tcp,v4-cidrs=[0.0.0.0/0]"
 export TOOLBOX_SG_ID=$(yc vpc security-group get $TOOLBOX_SG_NAME --format json | jq -r ".id")
 yc compute instance get $TOOLBOX_NAME && yc compute instance update-network-interface $TOOLBOX_NAME --network-interface-index	0 \
   --security-group-id	$TOOLBOX_SG_ID
