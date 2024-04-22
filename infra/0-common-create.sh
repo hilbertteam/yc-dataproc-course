@@ -46,11 +46,12 @@ export TOOLBOX_SA_ID=$(yc iam service-account get $TOOLBOX_SA_NAME --format json
 # INFRA
 export S3_BUCKET_NAME="${S3_BUCKET_INFRA}"
 envsubst < templates/s3-sa-policy.json > ./temp/s3-sa-policy.json
+# Назначаем сервисному аккаунту policy на бакет
 yc storage bucket update --name $S3_BUCKET_NAME --policy-from-file ./temp/s3-sa-policy.json
 # TASKS
 export S3_BUCKET_NAME="${S3_BUCKET_TASKS}"
 envsubst < templates/s3-sa-policy.json > ./temp/s3-sa-policy.json
-# Назначаем сервисному аккаунту ACL на бакеты
+# Назначаем сервисному аккаунту policy на бакет
 yc storage bucket update --name $S3_BUCKET_NAME --policy-from-file ./temp/s3-sa-policy.json
 
 ###
