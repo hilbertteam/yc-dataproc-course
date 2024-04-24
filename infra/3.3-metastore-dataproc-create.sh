@@ -20,7 +20,6 @@ test -f "$SSH_KEY_FILE" || ssh-keygen -t ed25519 -f $SSH_KEY_FILE -q -N ""
 # Получаем ID группы безопасности
 export DATAPROC_SG_ID=$(yc vpc security-group get $DATAPROC_SG_NAME --format json | jq -r ".id")
 # Создаем dataproc кластер
-export YC_BUCKET_WH="test-warehouse"
 yc dataproc cluster get $DATAPROC_CLUSTER_NAME 2>/dev/null || yc dataproc cluster create $DATAPROC_CLUSTER_NAME \
   --bucket=$S3_BUCKET_INFRA \
   --zone=$DATAPROC_ZONE_ID \
@@ -47,7 +46,7 @@ yc dataproc cluster get $DATAPROC_CLUSTER_NAME 2>/dev/null || yc dataproc cluste
   --deletion-protection=false \
   --ui-proxy=true \
   --property spark:spark.hive.metastore.uris=thrift://$METASTORE_IP:9083 \
-  --property spark:spark.sql.warehouse.dir,s3a://$S3_BUCKET_DATA/warehouse \
+  --property spark:spark.sql.warehouse.dir=s3a://$S3_BUCKET_DATA/warehouse \
   --property spark:spark.sql.hive.metastore.sharedPrefixes=com.amazonaws,ru.yandex.cloud
 
 
