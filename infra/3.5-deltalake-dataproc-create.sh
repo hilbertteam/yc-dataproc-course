@@ -4,7 +4,7 @@ set -ux
 
 # Считываем значения переменных
 source `dirname "$(realpath $0)"`/0-common-config.env
-source `dirname "$(realpath $0)"`/3.3-metastore-config.env
+source `dirname "$(realpath $0)"`/3.5-deltalake-config.env
 
 ###
 # Secority Group
@@ -45,10 +45,14 @@ yc dataproc cluster get $DATAPROC_CLUSTER_NAME 2>/dev/null || yc dataproc cluste
               `assign-public-ip=false \
   --deletion-protection=false \
   --ui-proxy=true \
+  --property spark:spark.sql.hive.metastore.sharedPrefixes=com.amazonaws,ru.yandex.cloud \
   --property spark:spark.hive.metastore.uris=thrift://$METASTORE_IP:9083 \
   --property spark:spark.sql.warehouse.dir=s3a://$S3_BUCKET_DATA/warehouse \
-  --property spark:spark.sql.hive.metastore.sharedPrefixes=com.amazonaws,ru.yandex.cloud
+  --property spark:spark.sql.catalogImplementation=hive \
+  --property spark:spark.jars.packages=io.delta:delta-core_2.12:0.8.0 \
+  --property spark:spark.sql.extensions=io.delta.sql.DeltaSparkSessionExtension
 
+# https://github.com/yandex-cloud/yc-delta/blob/develop/README.md
 
 ###
 # Service Account
