@@ -1,12 +1,12 @@
 resource "yandex_datasphere_community" "dataproc-course" {
-  name = "dataproc-course1"
+  name = "dataproc-course"
   description = "dataproc-course community"
-  # billing_account_id = "???"
-  organization_id = "bpflfqnbjqjq1m6001q6"
+  billing_account_id = var.yc_billing_account_id
+  organization_id = var.yc_organisation_id
 }
 
 resource "yandex_datasphere_project" "dataproc-course" {
-  name = "dataproc-course1"
+  name = "dataproc-course"
   description = "dataproc-course Datasphere Project"
 
   community_id = yandex_datasphere_community.dataproc-course.id
