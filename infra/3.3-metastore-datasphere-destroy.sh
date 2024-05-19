@@ -4,8 +4,7 @@ set -ux
 
 # Считываем значения переменных
 source `dirname "$(realpath $0)"`/0-common-config.env
-source `dirname "$(realpath $0)"`/2.7-datasphere-config.env
-
+source `dirname "$(realpath $0)"`/3.3-metastore-config.env
 
 ###
 # DataSphere
@@ -27,18 +26,3 @@ cd -
 #   --security-group-id $TOOLBOX_SG_ID
 # Удаляем dataproc кластер
 yc dataproc cluster delete $DATAPROC_CLUSTER_NAME
-
-
-###
-# Secority Group
-###
-# Удаляем Группу безопасности и правила в ней
-yc vpc security-group delete $DATAPROC_SG_NAME
-yc vpc security-group delete $DATASPHERE_SG_NAME
-
-
-###
-# Service Account
-###
-# Удаляем сервисный аккаунт
-yc iam service-account delete $DATASPHERE_SA_NAME

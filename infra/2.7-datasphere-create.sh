@@ -86,14 +86,14 @@ yc resource-manager folder add-access-binding dataproc \
   --role dataproc.agent \
   --subject serviceAccount:$DATASPHERE_SA_ID
 
-###
-# DataSphere
-###
-# Готовим providers.tf
-cd ./terraform
-./prepare.sh
-cd -
-# Создаем DataSphere
-cd ./terraform/datasphere
-terraform init -upgrade && terraform plan && terraform apply -auto-approve
-cd -
+# ###
+# # DataSphere
+# ###
+# # Готовим providers.tf
+# cd ./terraform
+# ./prepare.sh
+# cd -
+# # Создаем DataSphere
+# cd ./terraform/datasphere
+# terraform init -upgrade && terraform plan && terraform apply -auto-approve
+# cd -
