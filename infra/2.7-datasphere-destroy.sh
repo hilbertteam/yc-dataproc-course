@@ -11,9 +11,9 @@ source `dirname "$(realpath $0)"`/2.7-datasphere-config.env
 # DataSphere
 ###
 # Удаляем DataSphere community и project
-cd ./terraform/datasphere
-terraform destroy -auto-approve
-cd -
+#cd ./terraform/datasphere
+#terraform destroy -auto-approve
+#cd -
 
 ###
 # DataProc Cluster

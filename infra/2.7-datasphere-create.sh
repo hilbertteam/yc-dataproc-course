@@ -79,10 +79,10 @@ yc iam service-account create $DATASPHERE_SA_NAME
 # Получаем id сервисного аккаунта datasphere-sa
 export DATASPHERE_SA_ID=$(yc iam service-account get $DATASPHERE_SA_NAME --format json | jq -r ".id")
 # Назначаем сервисному аккаунту роли
-yc resource-manager folder add-access-binding dataproc \
+yc resource-manager folder add-access-binding $YC_FOLDER_ID \
   --role vpc.user \
   --subject serviceAccount:$DATASPHERE_SA_ID
-yc resource-manager folder add-access-binding dataproc \
+yc resource-manager folder add-access-binding $YC_FOLDER_ID \
   --role dataproc.agent \
   --subject serviceAccount:$DATASPHERE_SA_ID
 

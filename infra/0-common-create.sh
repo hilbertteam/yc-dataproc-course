@@ -18,12 +18,10 @@ yc iam service-account create $DATAPROC_SA_NAME
 # Получаем id сервисного аккаунта dataproc-sa
 export DATAPROC_SA_ID=$(yc iam service-account get $DATAPROC_SA_NAME --format json | jq -r ".id")
 # Назначаем сервисному аккаунту роли editor и dataproc.agent (необходимо для DataProc)
-yc resource-manager folder add-access-binding \
-  --name dataproc \
+yc resource-manager folder add-access-binding $YC_FOLDER_ID \
   --role editor \
   --subject serviceAccount:$DATAPROC_SA_ID
-yc resource-manager folder add-access-binding \
-  --name dataproc \
+yc resource-manager folder add-access-binding $YC_FOLDER_ID \
   --role dataproc.agent \
   --subject serviceAccount:$DATAPROC_SA_ID
 
