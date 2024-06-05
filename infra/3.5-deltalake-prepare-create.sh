@@ -69,9 +69,8 @@ yc vpc security-group get $DATAPROC_SG_NAME 2>/dev/null || yc vpc security-group
 # Получаем идентификатор группы безопасности dataproc-sg
 export DATAPROC_SG_ID=$(yc vpc security-group get $DATAPROC_SG_NAME --format json | jq -r ".id")
 
-# Добавляем в metastore-sg правила разрешающее весь трафик от и к dataproc-sg, если они еще не добавлены
-export METASTORE_RULES_COUNT=$(yc vpc security-group get --name $METASTORE_SG_NAME --format json | jq -c ".rules[] | select( .security_group_id != null) | select( .security_group_id | contains(\"$DATAPROC_SG_ID\"))" | wc -l )
-test $METASTORE_RULES_COUNT -eq 0 && yc vpc security-group update-rules \
+# Добавляем в metastore-sg правило разрешающее весь трафик от dataproc-sg
+yc vpc security-group update-rules \
   --name $METASTORE_SG_NAME \
   --add-rule "direction=ingress,port=any,protocol=any,security-group-id=$DATAPROC_SG_ID,description='Allow all from $DATAPROC_SG_NAME'" \
   --add-rule "direction=egress,port=any,protocol=any,security-group-id=$DATAPROC_SG_ID,description='Allow all to $DATAPROC_SG_NAME'"

@@ -59,3 +59,6 @@ yc managed-kafka topic create $KAFKA_TOPIC_NAME \
   --cluster-name $KAFKA_CLUSTER_NAME \
   --partitions $KAFKA_TOPIC_PARTITIONS \
   --replication-factor $KAFKA_TOPIC_REPLICATION_FACTOR
+
+# Выводим FQDN хоста
+yc managed-kafka cluster list-hosts $KAFKA_CLUSTER_NAME
