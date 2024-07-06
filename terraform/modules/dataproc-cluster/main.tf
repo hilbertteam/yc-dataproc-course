@@ -9,6 +9,7 @@ resource "yandex_dataproc_cluster" "dataproc" {
   zone_id             = var.zone_id
   ui_proxy            = var.ui_proxy
   deletion_protection = var.deletion_protection
+  security_group_ids  = var.security_group_ids
 
   cluster_config {
     # Certain cluster version can be set, but better to use default value (last stable version)

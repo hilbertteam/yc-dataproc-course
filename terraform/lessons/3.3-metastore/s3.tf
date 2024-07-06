@@ -7,7 +7,6 @@ module "s3-dataproc-infra" {
   folder_id = var.yc_folder_id
   bucket    = local.s3_infra_bucket_name
   sa_id     = module.terraform-s3-manager-sa.sa_id
-  force_destroy = true
   policy    = <<POLICY
 {
   "Version": "2012-10-17",

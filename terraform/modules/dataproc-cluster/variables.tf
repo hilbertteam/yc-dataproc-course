@@ -70,7 +70,7 @@ variable "services" {
 }
 
 variable "properties" {
-  type        = map(string)
+  type        = map(any)
   description = "dataproc cluster properties mapping"
   default = {
     # "yarn:yarn.resourcemanager.am.max-attempts" = 5

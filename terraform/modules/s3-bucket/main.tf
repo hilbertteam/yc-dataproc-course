@@ -17,5 +17,17 @@ resource "yandex_storage_bucket" "bucket" {
   secret_key = yandex_iam_service_account_static_access_key.sa-static-key.secret_key
   folder_id = var.folder_id
   bucket = var.bucket
+  max_size = var.max_size
+  default_storage_class = var.default_storage_class
+  tags = var.tags
   policy = var.policy
+  force_destroy = var.force_destroy
+
+  versioning {
+    enabled = var.versioning_enabled
+  }
+
+  depends_on = [
+    yandex_resourcemanager_folder_iam_member.sa-admin
+  ]
 }

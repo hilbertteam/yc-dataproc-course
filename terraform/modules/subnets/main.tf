@@ -15,6 +15,7 @@ resource "yandex_vpc_subnet" "subnets" {
 
 resource "yandex_vpc_route_table" "route_table" {
   count      = (var.gw_ip_address != null) || var.gateway ? 1 : 0
+  name       = "route-table-${data.yandex_vpc_network.vpc.name}"
   folder_id  = var.folder_id
   network_id = var.vpc_id
 

@@ -1,5 +1,5 @@
 locals {
-  s3_infra_bucket_name = "yc-dataproc-infra-21"
+  s3_infra_bucket_name = "yc-dataproc-infra-21-tf"
 }
 
 module "s3-dataproc-infra" {
@@ -18,6 +18,7 @@ module "s3-dataproc-infra" {
       "Principal": {
         "CanonicalUser": [
           "${module.dataproc-sa.sa_id}",
+          "${module.datasphere-sa.sa_id}",
           "${module.terraform-s3-manager-sa.sa_id}"
         ]
       },
@@ -31,14 +32,14 @@ module "s3-dataproc-infra" {
       "Action": "*",
       "Condition" : {
         "StringLike" : {
-          "aws:referer" : "https://console.yandex.cloud/folders/*/storage/buckets/yc-dataproc-infra-21*"
+          "aws:referer" : "https://console.yandex.cloud/folders/*/storage/buckets/${local.s3_infra_bucket_name}*"
         }
       },
       "Effect": "Allow",
       "Principal": "*",
       "Resource": [
-        "arn:aws:s3:::yc-dataproc-infra-21/*",
-        "arn:aws:s3:::yc-dataproc-infra-21"
+        "arn:aws:s3:::${local.s3_infra_bucket_name}/*",
+        "arn:aws:s3:::${local.s3_infra_bucket_name}"
       ],
       "Sid": "console-statement"
     }
