@@ -1,0 +1,15 @@
+# data "yandex_compute_instance" "yc-toolbox" {
+#   instance_id = var.yc_toolbox_instance_id
+# }
+
+data "yandex_vpc_network" "vpc" {
+  name = var.vpc_network_name
+}
+
+data "yandex_vpc_subnet" "dataproc" {
+  name = var.dataproc_subnet_name
+}
+
+data "yandex_vpc_security_group" "default" {
+  name = format("default-sg-%s", data.yandex_vpc_network.vpc.id)
+}

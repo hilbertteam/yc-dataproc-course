@@ -1,0 +1,19 @@
+{
+  "Statement": [
+    {
+      "Sid": "Allow all for ${DATAPROC_SA_NAME}",
+      "Effect": "Allow",
+      "Principal": {
+        "CanonicalUser": [
+          "${DATAPROC_SA_ID}",
+          "${TOOLBOX_SA_ID}"
+        ]
+      },
+      "Action": "*",
+      "Resource": [
+        "arn:aws:s3:::${S3_BUCKET_NAME}/*",
+        "arn:aws:s3:::${S3_BUCKET_NAME}"
+      ]
+    }
+  ]
+}

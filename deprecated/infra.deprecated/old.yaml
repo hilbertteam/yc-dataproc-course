@@ -1,0 +1,25 @@
+id: c9qmd1sikijpesd2gm20
+folder_id: b1ggmg4d4lt9jepn7q3q
+created_at: "2024-06-24T15:24:48.577540Z"
+name: dataproc-course-21
+config:
+  version_id: "2.1"
+  hadoop:
+    services:
+      - LIVY
+      - SPARK
+      - YARN
+    properties:
+      livy:livy.spark.deploy-mode: client
+    ssh_public_keys:
+      - |
+      ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAID77rE1xTx3jyScrJF6IjoVcVT/Dj4LTbKS9A5pdEApn yc-user@yc-toolbox
+health: ALIVE
+status: RUNNING
+zone_id: ru-central1-a
+service_account_id: ajespeep2cd6qu0fkvgo
+bucket: test-dataproc-21
+ui_proxy: true
+security_group_ids:
+  - enpr20t06p1fchlm2neo
+
