@@ -67,10 +67,17 @@ variable "datasphere_sa_name" {
   default = "datasphere-sa"
 }
 
-# variable "datasphere_community_id" {
+# variable "yc_organization_id" {
 #   type = string
+#   default = ""
 # }
 
-variable "yc_organisation_id" {
-  type = string
-}
+# variable "yc_billing_account_id" {
+#   type = string
+#   default = ""
+# }
+
+# variable "datasphere_community_id" {
+#   type = string
+#   default = ""
+# }
