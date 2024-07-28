@@ -44,7 +44,7 @@ variable "vpc_network_name" {
 
 variable "dataproc_subnet_name" {
   type = string
-  default = "dataproc-cluster-ru-central1-a"
+  default = "dataproc-dataproc-course"
 }
 
 variable "toolbox_name" {

@@ -19,14 +19,9 @@ variable "ssh_key_file" {
   default = "~/.ssh/id_ed25519"
 }
 
-variable "dataproc_cluster1_name" {
+variable "dataproc_cluster_name" {
   type = string
-  default = "dataproc-course-delta1"
-}
-
-variable "dataproc_cluster2_name" {
-  type = string
-  default = "dataproc-course-delta2"
+  default = "dataproc-course-delta"
 }
 
 variable "metastore_ip" {
@@ -38,11 +33,7 @@ variable "dataproc_sa_name" {
   default = "dataproc-sa"
 }
 
-variable "s3_bucket_dataproc1" {
-  type = string
-}
-
-variable "s3_bucket_dataproc2" {
+variable "s3_bucket_dataproc" {
   type = string
 }
 
