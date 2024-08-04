@@ -13,6 +13,7 @@ module "dataproc-sa" {
   folder_id = var.yc_folder_id
   folder_iam_roles = [
     "editor",
+    "dataproc.agent"
   ]
 }
 
