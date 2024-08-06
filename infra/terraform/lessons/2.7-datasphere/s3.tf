@@ -14,7 +14,7 @@ module "s3-dataproc-infra" {
       "Principal": {
         "CanonicalUser": [
           "${data.yandex_iam_service_account.dataproc-sa.id}",
-          "${data.yandex_iam_service_account.dataproc-sa.id}",
+          "${data.yandex_iam_service_account.datasphere-sa.id}",
           "${data.yandex_iam_service_account.terraform-s3-manager-sa.id}"
         ]
       },

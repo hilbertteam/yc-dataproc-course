@@ -14,7 +14,7 @@ module "s3-dataproc-delta1-infra" {
       "Principal": {
         "CanonicalUser": [
           "${data.yandex_iam_service_account.dataproc-sa.id}",
-          "${data.yandex_iam_service_account.dataproc-sa.id}",
+          "${data.yandex_iam_service_account.datasphere-sa.id}",
           "${data.yandex_iam_service_account.terraform-s3-manager-sa.id}"
         ]
       },
@@ -60,7 +60,7 @@ module "s3-dataproc-delta2-infra" {
       "Principal": {
         "CanonicalUser": [
           "${data.yandex_iam_service_account.dataproc-sa.id}",
-          "${data.yandex_iam_service_account.dataproc-sa.id}",
+          "${data.yandex_iam_service_account.datasphere-sa.id}",
           "${data.yandex_iam_service_account.terraform-s3-manager-sa.id}"
         ]
       },
