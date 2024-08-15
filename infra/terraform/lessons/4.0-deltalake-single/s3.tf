@@ -68,3 +68,15 @@ resource "yandex_storage_object" "delta-storage-jar" {
   access_key = yandex_iam_service_account_static_access_key.tf-mgmt-sa-static-key.access_key
   secret_key = yandex_iam_service_account_static_access_key.tf-mgmt-sa-static-key.secret_key
 }
+
+resource "yandex_storage_object" "company-data" {
+  for_each = fileset("${path.module}/../../../../temp/data", "*.csv")
+
+  bucket = var.s3_bucket_tasks
+  key    = "data/${each.value}"
+  source = "${path.module}/../../../../temp/data/${each.value}"
+  # etag makes the file update when it changes; see https://stackoverflow.com/questions/56107258/terraform-upload-file-to-s3-on-every-apply
+  # source_hash = filemd5("${path.module}/../../../../temp/data/${each.value}")
+  access_key = yandex_iam_service_account_static_access_key.tf-mgmt-sa-static-key.access_key
+  secret_key = yandex_iam_service_account_static_access_key.tf-mgmt-sa-static-key.secret_key
+}

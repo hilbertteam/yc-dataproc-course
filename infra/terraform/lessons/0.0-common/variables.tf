@@ -34,6 +34,11 @@ variable "dataproc_subnet_cidr" {
   default = "10.40.0.0/24"
 }
 
+# variable "toolbox_sa_name" {
+#   type = string
+#   default = "toolbox-sa"
+# }
+
 variable "dataproc_sa_name" {
   type = string
   default = "dataproc-sa"
