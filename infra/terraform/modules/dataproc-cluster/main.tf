@@ -1,5 +1,5 @@
 resource "yandex_dataproc_cluster" "dataproc" {
-  depends_on = [yandex_resourcemanager_folder_iam_binding.dataproc]
+  # depends_on = [yandex_resourcemanager_folder_iam_binding.dataproc]
 
   bucket              = var.bucket
   description         = var.description
