@@ -13,3 +13,11 @@ data "yandex_vpc_subnet" "dataproc" {
 data "yandex_vpc_security_group" "default" {
   name = format("default-sg-%s", data.yandex_vpc_network.vpc.id)
 }
+
+data "yandex_iam_service_account" "dataproc-sa" {
+  name = var.dataproc_sa_name
+}
+
+data "yandex_iam_service_account" "terraform-s3-manager-sa" {
+  name = "terraform-s3-test-manager-sa"
+}

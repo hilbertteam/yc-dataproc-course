@@ -2,19 +2,19 @@ module "s3-dataproc-infra" {
   source    = "../../modules/s3-bucket"
   folder_id = var.yc_folder_id
   bucket    = var.s3_bucket_dataproc
-  sa_id     = module.terraform-s3-manager-sa.sa_id
+  sa_id     = data.yandex_iam_service_account.terraform-s3-manager-sa.id
   force_destroy = true
   policy    = <<POLICY
 {
   "Version": "2012-10-17",
   "Statement": [
     {
-      "Sid": "Allow all for ${module.dataproc-sa.sa_name}",
+      "Sid": "Allow all for ${data.yandex_iam_service_account.dataproc-sa.name}",
       "Effect": "Allow",
       "Principal": {
         "CanonicalUser": [
-          "${module.dataproc-sa.sa_id}",
-          "${module.terraform-s3-manager-sa.sa_id}"
+          "${data.yandex_iam_service_account.dataproc-sa.id}",
+          "${data.yandex_iam_service_account.terraform-s3-manager-sa.id}"
         ]
       },
       "Action": "*",

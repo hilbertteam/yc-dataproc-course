@@ -71,3 +71,15 @@ variable "yc_billing_account_id" {
   type = string
   default = ""
 }
+
+variable "enable_autoscaling" {
+  description = "Enable autoscaling configuration"
+  type        = bool
+  default     = false
+}
+
+variable "cpu_utilization_target" {
+  description = "The target CPU utilization for the autoscaling configuration"
+  type        = number
+  default     = 0.0
+}
