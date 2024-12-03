@@ -7,7 +7,7 @@ resource "yandex_iam_service_account_static_access_key" "tf-mgmt-sa-static-key" 
   description        = format("Upload objects to s3 bucket %s", var.s3_bucket_tasks)
 }
 
-resource "yandex_storage_object" "lickhouse-jdbc-jar" {
+resource "yandex_storage_object" "clickhouse-jdbc-jar" {
   bucket = var.s3_bucket_tasks
   key    = "jars/clickhouse-jdbc-0.6.5.jar"
   source = "${path.module}/../../../jars/clickhouse-jdbc-0.6.5.jar"
