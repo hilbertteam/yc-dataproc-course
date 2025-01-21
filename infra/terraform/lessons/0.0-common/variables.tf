@@ -49,6 +49,11 @@ variable "datasphere_sa_name" {
   default = "datasphere-sa"
 }
 
+variable "airflow_sa_name" {
+  type = string
+  default = "airflow-sa"
+}
+
 variable "s3_bucket_data" {
   type = string
 }

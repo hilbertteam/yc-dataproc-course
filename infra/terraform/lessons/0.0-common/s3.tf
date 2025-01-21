@@ -61,6 +61,7 @@ module "s3-bucket-tasks" {
         "CanonicalUser": [
           "${module.dataproc-sa.sa_id}",
           "${module.datasphere-sa.sa_id}",
+          "${module.airflow-sa.sa_id}",
           "${module.terraform-s3-manager-sa.sa_id}"
         ]
       },
