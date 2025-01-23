@@ -5,7 +5,7 @@ set -eu
 # Считываем значения переменных
 source `dirname "$(realpath $0)"`/0-common-config.env
 source `dirname "$(realpath $0)"`/2.3-dataproc-config.env
-source `dirname "$(realpath $0)"`/terraform/tf.env
+source `dirname "$(realpath $0)"`/terraform/lessons/tf.env
 
 # Получаем fqdn master-ноды кластера DataProc
 export DATAPROC_MASTER_NODE_FQDN=$(yc dataproc cluster list-hosts --name ${DATAPROC_CLUSTER_NAME} --folder-id ${TF_VAR_yc_folder_id} --format json | jq -r '.[] | select(.role == "MASTERNODE") | .name')
