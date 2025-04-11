@@ -19,5 +19,5 @@ data "yandex_iam_service_account" "dataproc-sa" {
 }
 
 data "yandex_iam_service_account" "terraform-s3-manager-sa" {
-  name = "terraform-s3-test-manager-sa"
+  name = var.terraform_sa_name
 }

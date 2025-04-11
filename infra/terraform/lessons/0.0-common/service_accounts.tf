@@ -1,6 +1,6 @@
 module "terraform-s3-manager-sa" {
   source    = "../../modules/service-account"
-  name      = "terraform-s3-manager-sa"
+  name      = var.terraform_sa_name
   folder_id = var.yc_folder_id
   folder_iam_roles = [
     "storage.admin"

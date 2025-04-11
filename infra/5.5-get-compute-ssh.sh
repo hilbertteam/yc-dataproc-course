@@ -4,7 +4,7 @@ set -eu
 
 # Считываем значения переменных
 source `dirname "$(realpath $0)"`/0-common-config.env
-source `dirname "$(realpath $0)"`/5.5-dataproc-config.env
+source `dirname "$(realpath $0)"`/5.5-dataproc-autoscale-config.env
 source `dirname "$(realpath $0)"`/terraform/tf.env
 
 # Получаем fqdn master-ноды кластера DataProc
