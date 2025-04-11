@@ -23,6 +23,11 @@ variable "ssh_key_file" {
   default = "~/.ssh/id_ed25519"
 }
 
+variable "terraform_sa_name" {
+  type = string
+  default = "terraform-s3-manager-sa"
+}
+
 variable "clickhouse_cluster_name" {
   type = string
   default = "dataproc-course"

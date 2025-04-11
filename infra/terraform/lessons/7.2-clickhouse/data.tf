@@ -15,5 +15,5 @@ data "yandex_vpc_security_group" "default" {
 }
 
 data "yandex_iam_service_account" "terraform-s3-manager-sa" {
-  name = "terraform-s3-manager-sa"
+  name = var.terraform_sa_name
 }
