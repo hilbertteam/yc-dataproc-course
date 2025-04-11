@@ -4,19 +4,22 @@ set -ux
 
 # Считываем значения переменных
 source `dirname "$(realpath $0)"`/0-common-config.env
-source `dirname "$(realpath $0)"`/5.2-kafka-config.env
 
+#########
+# Infra #
+#########
 
 ###
-# Kafka
+# dataproc cluster
 ###
-# Получаем ID сети
-export VPC_NETWORK_ID=$(yc vpc network get $VPC_NETWORK_NAME | grep "^id:" | awk '{ print $2 }')
+# Инициализируем переменные
+source `dirname "$(realpath $0)"`/terraform/tf.env
+source `dirname "$(realpath $0)"`/terraform/lessons/tf.env
+source `dirname "$(realpath $0)"`/terraform/lessons/5.2-kafka/tf.env
 
-# Удаляем кластер
-yc managed-kafka cluster delete $KAFKA_CLUSTER_NAME
+# Инициализируем провайдера
+cd `dirname "$(realpath $0)"`/terraform/lessons/5.2-kafka
+terraform init -upgrade
 
-# Удаляем правила группы безопасности
-# yc vpc security-group get $KAFKA_SG_NAME | yq ".rules[].id" | xargs -I{} yc vpc security-group update-rules $KAFKA_SG_NAME --delete-rule-id {}
-# Удаляем группу безопасности
-yc vpc security-group delete $KAFKA_SG_NAME
+# Дестрой
+terraform destroy

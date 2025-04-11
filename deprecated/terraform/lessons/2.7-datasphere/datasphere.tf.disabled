@@ -1,0 +1,11 @@
+module "datasphere" {
+  source = "../../modules/datasphere"
+  datasphere_community_id = var.datasphere_community_id
+  datasphere_project_name = "dataproc-course-21-tf"
+  service_account_id = module.datasphere-sa.sa_id
+  vpc_subnet_id = module.subnet.subnet_ids[format("%s-%s", module.vpc.vpc_name, var.yc_zone)]
+  dataproc_cluster_id = module.dataproc-cluster.dataproc_cluster_id
+  security_group_ids = [data.yandex_vpc_security_group.default.id]
+  default_folder_id = var.yc_folder_id
+  yc_organisation_id = var.yc_organisation_id
+}

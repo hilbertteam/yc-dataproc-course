@@ -1,5 +1,7 @@
-*/temp/*
-*/temp.sh
+**/temp/*
+**/temp.sh
 terraform.tfstate*
 .terraform
 gen-*.tf
+log.*
+log_*

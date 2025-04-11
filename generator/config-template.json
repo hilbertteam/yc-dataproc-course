@@ -1,0 +1,47 @@
+{
+  "KAFKA_BROKERS": [
+    "${KAFKA_BROKERS}"
+  ],
+  "KAFKA_TOPIC": "${KAFKA_TOPIC}",
+  "KAFKA_USERNAME": "${KAFKA_USERNAME}",
+  "KAFKA_PASSWORD": "${KAFKA_PASSWORD}",
+  "KAFKA_SSL_CA_CERT": "/usr/local/share/ca-certificates/Yandex/YandexInternalRootCA.crt",
+  "TX_DELAY_MS": "${TX_DELAY_MS}",
+  "HOUSEHOLD_KEYS": [
+    1,
+    2,
+    3
+  ],
+  "STORE_IDS": [
+    1,
+    2
+  ],
+  "PRODUCT_IDS": [
+    1,
+    2,
+    3
+  ],
+  "BASKET_ID": 0,
+  "DAY": 0,
+  "AVG_TX_PER_DAY": 5,
+  "QUANTITY": [
+    1,
+    10
+  ],
+  "SALES_VALUE": [
+    5,
+    10
+  ],
+  "COUPON_MATCH_DISC": [
+    10,
+    20
+  ],
+  "COUPON_DISC": [
+    30,
+    50
+  ],
+  "RETAIL_DISC": [
+    50,
+    70
+  ]
+}
