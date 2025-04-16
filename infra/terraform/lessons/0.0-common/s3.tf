@@ -62,7 +62,8 @@ module "s3-bucket-tasks" {
           "${module.dataproc-sa.sa_id}",
           "${module.datasphere-sa.sa_id}",
           "${module.airflow-sa.sa_id}",
-          "${module.terraform-s3-manager-sa.sa_id}"
+          "${module.terraform-s3-manager-sa.sa_id}",
+          "${data.yandex_iam_service_account.toolbox-sa.id}"
         ]
       },
       "Action": "*",
