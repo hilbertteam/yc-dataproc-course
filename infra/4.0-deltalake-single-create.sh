@@ -4,7 +4,6 @@ set -ux
 
 # Считываем значения переменных
 source `dirname "$(realpath $0)"`/0-common-config.env
-source `dirname "$(realpath $0)"`/4.0-common-config.env
 source `dirname "$(realpath $0)"`/4.0-deltalake-single-config.env
 
 #########
