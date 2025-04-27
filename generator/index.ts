@@ -180,7 +180,7 @@ async function main() {
         },
       ],
     });
-    await sleep(config.TX_DELAY_MS);
+    await sleep(+config.TX_DELAY_MS);
   }
 }
 
