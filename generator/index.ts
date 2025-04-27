@@ -15,7 +15,6 @@ function round(n: number, fractionDigits: number) {
   return Number(n.toFixed(fractionDigits));
 }
 
-// Generate `count` numbers from `start` with delta `dt`
 function uniformRange(start: number, dt: number, count: number) {
   return Array.from({ length: count }).map((_, i) => start + dt * i);
 }
@@ -33,6 +32,8 @@ type Transaction = {
   retailDisc: number;
   transTime: number;
   weekNo: number;
+  creationTime: string;
+  messagesPerSecond: number;
 };
 
 class TransactionGenerator {
@@ -40,6 +41,8 @@ class TransactionGenerator {
   private todayTransactionNumber: number = 0;
   private todayTransactionTimes: number[] = [];
   private weekNumber: number = 1;
+  private messagesCounter: number = 0;
+  private lastSecondTimestamp: number = Date.now();
 
   private static MAX_TIME = 2400;
 
@@ -63,7 +66,6 @@ class TransactionGenerator {
 
   private nextDay() {
     const randPlusMinus1 = 2 * Math.random() - 1;
-    // Generate uniform [a;b] from [-avg/2 + avg; avg + avg/2] -> mean is (a+b)/2 = 2avg / 2 = avg
     this.todayTransactionsCount = Math.max(
       0,
       Math.floor(
@@ -72,7 +74,6 @@ class TransactionGenerator {
       ),
     );
     this.todayTransactionNumber = 0;
-    // Generate uniform distributed number of transaction for today but could be replaced with normal distribution if needed
     const dt = TransactionGenerator.MAX_TIME / this.todayTransactionsCount;
     this.todayTransactionTimes = uniformRange(
       0,
@@ -80,15 +81,32 @@ class TransactionGenerator {
       this.todayTransactionsCount,
     ).map((x) => Math.floor(x));
     this.params.day += 1;
-    // Week number according to data sample starts from 1
     this.weekNumber = Math.floor(this.params.day / 7) + 1;
+  }
+
+  private getMessagesPerSecond(): number {
+    const now = Date.now();
+    const elapsedSeconds = (now - this.lastSecondTimestamp) / 1000;
+    
+    if (elapsedSeconds >= 1) {
+      const mps = this.messagesCounter / elapsedSeconds;
+      this.messagesCounter = 0;
+      this.lastSecondTimestamp = now;
+      return mps;
+    }
+    
+    return this.messagesCounter / elapsedSeconds;
   }
 
   next(): Transaction {
     if (this.todayTransactionsCount === this.todayTransactionNumber) {
       this.nextDay();
     }
-    const transactionData = {
+    
+    this.messagesCounter++;
+    const messagesPerSecond = this.getMessagesPerSecond();
+
+    const transactionData: Transaction = {
       householdKey: pick(this.params.householdKeys),
       basketId: this.params.basketId,
       day: this.params.day,
@@ -104,7 +122,10 @@ class TransactionGenerator {
       retailDisc: round(pickNumberFromInterval(this.params.retailDisc), 2),
       transTime: this.todayTransactionTimes[this.todayTransactionNumber],
       weekNo: this.weekNumber,
+      creationTime: new Date().toISOString(),
+      messagesPerSecond: round(messagesPerSecond, 2),
     };
+    
     this.params.basketId += 1;
     this.todayTransactionNumber += 1;
     return transactionData;
@@ -129,8 +150,12 @@ function serializeTransaction(transaction: Transaction) {
     RETAIL_DISC: transaction.retailDisc,
     TRANS_TIME: transaction.transTime,
     WEEK_NO: transaction.weekNo,
+    CREATION_TIME: transaction.creationTime,
+    MESSAGES_PER_SECOND: transaction.messagesPerSecond,
   });
 }
+
+// Остальной код остается без изменений
 
 async function main() {
   const config = readConfigFromFile();
@@ -180,7 +205,7 @@ async function main() {
         },
       ],
     });
-    await sleep(config.TX_DELAY_MS);
+    await sleep(+config.TX_DELAY_MS);
   }
 }
 
