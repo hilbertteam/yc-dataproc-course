@@ -34,7 +34,9 @@ locals {
       "spark:spark.debug.maxToStringFields"    = 200,
       "spark:spark.sql.catalog.spark_catalog"  = "org.apache.spark.sql.delta.catalog.DeltaCatalog",
       "spark:spark.sql.catalogImplementation"  = "hive",
-      "spark:spark.sql.repl.eagerEval.enabled" = "true"
+      "spark:spark.sql.repl.eagerEval.enabled" = "true",
+      # kafka
+      "spark:spark.jars.packages"              = "org.apache.spark:spark-sql-kafka-0-10_2.12:3.4.0"
     }
     ssh_public_keys = [
       file(format("%s.pub", var.ssh_key_file))
