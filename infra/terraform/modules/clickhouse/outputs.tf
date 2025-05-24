@@ -2,6 +2,14 @@ output "cluster_id" {
   value = yandex_mdb_clickhouse_cluster.managed_clickhouse.id
 }
 
+output "cluster_fqdn_rw" {
+  value = "c-${yandex_mdb_clickhouse_cluster.managed_clickhouse.id}.rw.mdb.yandexcloud.net"
+}
+
+output "cluster_fqdn_ro" {
+  value = "c-${yandex_mdb_clickhouse_cluster.managed_clickhouse.id}.ro.mdb.yandexcloud.net"
+}
+
 output "cluster_hosts_fqdns" {
   value = [
     for host in yandex_mdb_clickhouse_cluster.managed_clickhouse.host[*] :
